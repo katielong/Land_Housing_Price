@@ -1,0 +1,93 @@
+
+body{
+  font-family: 'Slabo 27px', serif;
+  width:1000px;
+  height:700px;
+  margin-left:50px;
+}
+
+svg{
+  margin-top:0px;
+  padding-top:0px;
+  margin-left:50px;
+}
+
+#legend svg{
+  float:right;
+  clear:both;
+}
+
+header {
+  margin-left:50px;
+  padding:0 auto;
+  font-size:30px;
+  font-style:bold;
+  clear:both;
+  height:30px;
+}
+
+aside{
+  float:right;
+  width:300px;
+  
+}
+
+.key path {
+  display: none;
+}
+
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#tooltip {
+    border: 1px solid #777;
+}
+
+#tooltip label {
+    font-style: bold;
+    font-size: 15px;
+    display: block;
+    float: left;
+    font-weight: bold;
+}
+
+.counties {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: 0.2px;
+  stroke-linejoin: round;
+}
+
+.states {
+  fill: none;
+  stroke: #777;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+
+.control{
+  display:block;
+  margin-top:60px;
+  margin-left:50px;
+}
+
+#range{
+  margin-top:0px;
+  font-style:bolder;
+  font-weight:900;
+  font-size:20px;
+  padding-top:0;
+}
+
+.q0-9 { fill: #FFC4C0; }
+.q1-9 { fill: #FF9580; }
+.q2-9 { fill: #E58673; }
+.q3-9 { fill: #B2685A; }
+.q4-9 { fill: #7F4A40; }
+.q5-9 { fill: #693F36; }
+.q6-9 { fill: #5E302A; }
+.q7-9 { fill: #45231F; }
+.q8-9 { fill: #2E1715; }
+

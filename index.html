@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>	
+<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <!-- d3 library -->
+    <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
+    <!-- d3-geo library -->
+    <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <p> An overview of Residential Land Price, Residential Land Sales, Housing Price in China from 2007-2012</p>
+  </header>
+    <input class="control" id="slider" type="range" min="2007" max="2012" value="2007" step=1>
+    <span class="control" id="range">2007</span>
+
+  <aside>
+    <h3>Residential Land Price, Residential Land Sales, and Housing Price in China</h3>
+    <p>During my internship at Lincoln Institute of Land Policy, I helped with a research project looking at panel data on Chinese Residential Land Price, Residential Land Sales and Housing Price. Two topics were explored: 1. What is the relationship btween residential land price and housing price? 2. What is the relationship between residential land price and residential land sales? For the first question, we were interested in the pulling and pushing affects between two prices. And for the second question, we want to examine that whether land sales, which were solely determined by the government, had influence on residential land price.</p>
+  </aside>
+
+
+    <script>
+    onload = function() {
+    var $ = function(id) { 
+      return document.getElementById(id); };
+    $('slider').oninput = function() { $('range').innerHTML = this.value; };
+    $('slider').oninput();
+    };
+    </script>
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
