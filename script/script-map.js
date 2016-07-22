@@ -1,76 +1,62 @@
 // json files from d3js-footprint: http://blog.econst.org/footprint
 
-function csv2json(csv){ 
-      var nested = d3.nest()
-        .key(function(d){ return d.cityid; })
-        .entries(csv)
-        
-      var json = nested.map(function(d){
-        var namerecord = {};
-        namerecord.cityid = d.key; 
-        namerecord.city = d.values[0].city;
-        namerecord.province = d.values[0].province;
-        namerecord.city_eng = d.values[0].city_eng;
-        
-        namerecord.resid_price = d.values.map(function(c){ return c.resid_price; });
-        namerecord.resid_area= d.values.map(function(c){ return c.resid_area; });
-        namerecord.housing_price = d.values.map(function(c){ return c.housing_price; });
-        namerecord.CPI = d.values.map(function(c){ return c.CPI; });
-        namerecord.pop = d.values.map(function(c){ return c.nmzrk; });
-        return namerecord;
-      });
-      return json;
-}
-
-function which(data, year){
-    data.forEach(function(d){
-        rateById.set(d.cityid, +d.resid_price[year-2007]);
-    });
-}
-
-
-var tooltip = d3.select("body").append("div")
+// declare global variable
+var tooltip = d3.select("#overview").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
     .style("position", "absolute")
     .html("<label><span id=\"tt_county\"></span></label>");//what does this line do?
 
-var rateById = d3.map();
-
-var w=650;
-var h=550;
+var w=650, h=550, currentyear, currentvar, newdata;
 
 var projection=d3.geoMercator().center([105,38]).scale(590).translate([w/2, h/2.2]);
+
 var path=d3.geoPath().projection(projection);
 
-var svg = d3.select("body")
+var svg = d3.selectAll("#overview")
 			.append("svg")
 			.attr("width", w)
 			.attr("height", h);
 
 var quantize = d3.scaleThreshold()
-    .domain([100, 200, 350, 500, 800, 3000, 5000, 8000, 10000])
+    .domain([100, 300, 500, 800, 1000, 1500, 2000, 5000, 8000])
     .range(["#FFC4C0", "#FF9580", "#E58673","#B2685A", "#7F4A40", "#693F36", "#5E302A", "#45231F", "#2E1715"]);
 
+var p=d3.precisionFixed(0.5); f=d3.format("." + p + "f");
 
+// load data files
 d3.csv("data.csv",function(csv){
     var data=csv2json(csv);
-    which(data,2007);
-    
-    var eng_name = d3.map();
+
+    currentyear=2007;
+    currentvar="Residential Land Price"
+    newdata = which(data,currentyear,currentvar);
+
+    var eng_name = d3.map(), pop=d3.map(), resid_area = d3.map();
 
     data.forEach(function(d){
         eng_name.set(d.cityid, d.city_eng);
     });
 
+    data.forEach(function(d){
+        pop.set(d.cityid, d.pop[currentyear-2007]);
+    });
+
+    data.forEach(function(d){
+        resid_area.set(d.cityid, d.resid_area[currentyear-2007]);
+    });
+
+
+
     d3.json("d3js-footprint-master/data/china_cities.json", function(counties){
+
     svg.append("g")
         .attr("class", "counties")
         .selectAll("path")
         .data(counties.features)
         .enter()
         .append("path")
-        .style("fill", function(d) { return quantize(rateById.get(d.id)); }) //get the value for the given key
+        .style("fill", function(d) {return quantize(newdata.get(d.id)); }) //get the value for the given key
         .attr("d", path)    //this line draw the paths for counties
         .attr("id", function(d) {return d.cityid;})
         .attr("data-legend",function(d) { return d.name})
@@ -80,14 +66,16 @@ d3.csv("data.csv",function(csv){
                 .style("left", m[0] + 10 + "px")
                 .style("top", m[1] - 10 + "px");
             d3.select(this).transition().duration(200).style("fill","yellow");
-            $("#tt_county").text(d.properties.name + " (" + eng_name.get(d.id) + " City ): " + rateById.get(d.id));
+            $("#tt_county").html(d.properties.name + " (" + eng_name.get(d.id) + " City) <br>" +
+                currentvar + ": " + newdata.get(d.id) + "<br>" + 
+                "Residential Area: " + resid_area.get(d.id) + " Acre <br>" +
+                "Population: " + pop.get(d.id)*10000);
         })
         .on("mouseout", function() {
             tooltip.style("display", "none");
-            d3.select(this).transition().duration(200).style("fill",function(d) { return quantize(rateById.get(d.id)); });
+            d3.select(this).transition().duration(200).style("fill",function(d) { return quantize(newdata.get(d.id)); });
 
         });
-
 
         // province
         d3.json("d3js-footprint-master/data/china_provinces.json", function(states){
@@ -100,22 +88,23 @@ d3.csv("data.csv",function(csv){
             .attr("d", path);
         });
 
-            // legend
+
+        // legend
             var formatNumber = d3.format(".0f");
             var w=1000;
             var h=50;
 
             var x = d3.scaleLinear()
-            .domain([0,10000])
+            .domain([0,8000])
             .range([0,w]);
 
             var xAxis = d3.axisTop()
             .scale(x)
             .tickSize(6)
-            .tickValues([100,500,1000,2000,5000,8000])
+            .tickValues([100, 500, 1000, 1500, 2000, 5000])
             .tickFormat(function(d) {return formatNumber(d);});                
 
-            var svg2 = d3.selectAll("body").append("svg")
+            var svg2 = d3.selectAll("#overview").append("svg")
             .attr("id","legend")
             .attr("width", w)
             .attr("height", h);
@@ -139,41 +128,62 @@ d3.csv("data.csv",function(csv){
             g.call(xAxis);
     })
 
+    //drop-down menu
+    d3.select('#opts').on('change', function() {
+        var value=this.value;
+        if (value=="resid_price"){
+            currentvar="Residential Land Price";
+            newdata=which(data,currentyear,currentvar);
+        } else if (value=="housing_price"){
+            currentvar="Housing Price";
+            newdata=which(data,currentyear,currentvar);
+        };
+
+        d3.selectAll("path")
+        .style("fill", function(d){return quantize(newdata.get(d.id));
+        });
+    });
+
+
     // slider
     d3.selectAll("input").on("change", function change() {
         var value = this.value;
-
         d3.selectAll("path")
         .style("fill", function(d) {
             switch (value) {
                 case "2007":
-                    which(data,2007);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2007;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
                 case "2008":
-                    which(data,2008);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2008;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
                 case "2009":
-                    which(data,2009);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2009;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
                 case "2010":
-                    which(data,2010);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2010;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
                 case "2011":
-                    which(data,2011);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2011;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
                 case "2012":
-                    which(data,2012);
-                    return quantize(rateById.get(d.id));
+                    currentyear=2012;
+                    newdata = which(data,currentyear,currentvar);
+                    return quantize(newdata.get(d.id));
                     break;
             }
         });
     });
-
 });
 
 

@@ -1,41 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>	
-<meta charset="utf-8">
-
+<html>
+<head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
+
     <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
     <!-- d3 library -->
     <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     <!-- d3-geo library -->
     <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
-    <script type="text/javascript" src="jquery-3.0.0.min.js"></script>
+    <!-- jquery library -->
+    <script type="text/javascript" src="script/jquery-3.0.0.min.js"></script>
+    <!-- local function -->
+    <script type="text/javascript" src="script/function.js"></script>
 </head>
 
 <body>
-  <header>
-    <p> An overview of Residential Land Price, Residential Land Sales, Housing Price in China from 2007-2012</p>
-  </header>
-    <input class="control" id="slider" type="range" min="2007" max="2012" value="2007" step=1>
-    <span class="control" id="range">2007</span>
+<div id="wrapper">
+   <header>
+      <p> Residential Land Price and Housing Price in 281 Chinese cities from 2007-2012</p>
+    </header>
 
-  <aside>
-    <h3>Residential Land Price, Residential Land Sales, and Housing Price in China</h3>
-    <p>During my internship at Lincoln Institute of Land Policy, I helped with a research project looking at panel data on Chinese Residential Land Price, Residential Land Sales and Housing Price. Two topics were explored: 1. What is the relationship btween residential land price and housing price? 2. What is the relationship between residential land price and residential land sales? For the first question, we were interested in the pulling and pushing affects between two prices. And for the second question, we want to examine that whether land sales, which were solely determined by the government, had influence on residential land price.</p>
-  </aside>
+	<div id="overview">
+    <div id="control-line">
+    <select id="opts" class="control" multiple>
+          <option value="Residential Land Price">Real Residential Land Price (10,000 RMB/Acre<sup>2</sup>)</option>
+          <option value="Housing Price">Real Housing Price(RMB/m<sup>2</sup>)</option>
+          <option value="New Land Sales">New Land Sales (Acre)</option>
+          <option value="Urban Population">Urban Population (10,000)</option>
+          <option value="Salary">Real Employee Salary (RMB)</option>
+    </select>
 
+    <input name="updateButton" 
+      type="button" 
+      value="PLAY" 
+      onclick="animateMap()"
+      id="button"/>
+    <span id="clock">Year</span>
 
-    <script>
-    onload = function() {
-    var $ = function(id) { 
-      return document.getElementById(id); };
-    $('slider').oninput = function() { $('range').innerHTML = this.value; };
-    $('slider').oninput();
-    };
-    </script>
-    <script type="text/javascript" src="script.js"></script>
+    </div>
 
-
+    <aside>
+    <h3>Research Questions</h3>
+    <p>During my internship at <a href="http://www.plc.pku.edu.cn/en/">Lincoln Institute of Land Policy</a>, I helped with a research project looking at a panel dataset on 281 Chinese cities' housing price, residential land price and land sales from 2007-2012. Our goal was to identify the interaction between housing price and residential land price in the context of China's public land ownership, and to examine if land restriction plays any part in influencing land price. </p>
+    <p>This animated visualization using d3 intends to give an overview of the dataset. Note that we deflated all price variables by the CPI in the corresponding province using 2000 as the base year. From the visualization we observed that a lot of data were missing from cities in Western China, especially in Tibet, Xinjiang, Qinghai, Sichuan, Yunnan and Inner Mongolia. </p>
+    <p>In the next visualization, we zoom in for more information on each city.</p>
+    <p class="right">Next <a href="zoomin.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
+    </aside>
+	</div>
+</div>
+<script type="text/javascript" src="script/script-map-animate.js"></script>
 </body>
+</html>

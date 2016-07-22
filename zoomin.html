@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>	
+<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <!-- d3 library -->
+    <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
+    <!-- d3-geo library -->
+    <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <!-- jquery library -->
+    <script type="text/javascript" src="script/jquery-3.0.0.min.js"></script>
+    <!-- local function -->
+    <script type="text/javascript" src="script/function.js"></script>
+</head>
+
+<body>
+  
+  <div id="wrapper">
+    <div id="overview">
+
+    <div id = "control-line">
+      <p class="control">Select the Year</p>     
+      <select id="opts" class="control" multiple>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+      </select>
+      <p class="control">before Zooming In, Click the same city to Zoom back out</p>
+    </div>
+
+    <aside>
+      <h2>Zoom-in for details</h2>
+      <p>This d3 visualization modified from <a href = "https://bl.ocks.org/mbostock/2206590">Mike Bostock</a> enables viewers to zoom in and view information on each city. </p>
+      <p class="left">Last <a href="index.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
+      <p class="right">Next <a href="scatter.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
+    </aside> 
+    
+    </div>
+  </div>
+ 
+
+  </div>
+ 
+
+  <script type="text/javascript" src="script/script-zoomin.js"></script>
+</body>

@@ -1,9 +1,33 @@
 
 body{
   font-family: 'Slabo 27px', serif;
+}
+
+.active{
+  fill:yellow;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.arrow{
+  display:inline-block;
+  width:15px;
+}
+
+.right{
+  float:right;
+}
+
+.left{
+  float:left;
+}
+
+
+#wrapper{
+  margin:20px 50px;
   width:1000px;
-  height:700px;
-  margin-left:50px;
+  margin:0 auto;
 }
 
 svg{
@@ -29,7 +53,6 @@ header {
 aside{
   float:right;
   width:300px;
-  
 }
 
 .key path {
@@ -42,7 +65,9 @@ aside{
 }
 
 #tooltip {
-    border: 1px solid #777;
+    border: 1px solid #FFE9E9;
+    /*width: 200px;*/
+    background-color:#FFE9E9;
 }
 
 #tooltip label {
@@ -68,9 +93,19 @@ aside{
 }
 
 .control{
-  display:block;
-  margin-top:60px;
+  display:inline-block;
+  vertical-align: middle;
+}
+
+#control-line{
+  font-size:20px;
+  margin-top:40px;
   margin-left:50px;
+}
+
+#control-line::after{
+  content:"";
+  clear:both;
 }
 
 #range{
@@ -81,13 +116,45 @@ aside{
   padding-top:0;
 }
 
-.q0-9 { fill: #FFC4C0; }
-.q1-9 { fill: #FF9580; }
-.q2-9 { fill: #E58673; }
-.q3-9 { fill: #B2685A; }
-.q4-9 { fill: #7F4A40; }
-.q5-9 { fill: #693F36; }
-.q6-9 { fill: #5E302A; }
-.q7-9 { fill: #45231F; }
-.q8-9 { fill: #2E1715; }
+#button, #opts{
+  background-color:#FFF;
+  border: 1px dotted #ccc; 
+  padding:0 auto;
+}
+
+/*scatter*/
+
+text {
+  font: 10px sans-serif;
+}
+
+.dot {
+  stroke: #000;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.label {
+  fill: #777;
+}
+
+.year.label, #clock{
+  font: 500 60px 'Slabo 27px';
+  fill: #ddd;
+  padding:20px;
+}
+
+.year.label.active {
+  fill: #aaa;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+  cursor: ew-resize;
+}
 

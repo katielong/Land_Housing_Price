@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>	
+<meta charset="utf-8">
+
+	 <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <!-- d3 library -->
+    <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
+    <!-- d3-geo library -->
+    <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <!-- jQuery library-->
+    <script type="text/javascript" src="script/jquery-3.0.0.min.js"></script>
+    <!-- local function -->
+    <script type="text/javascript" src="script/function.js"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+      <div id="overview">
+
+      <div id="control-line">
+          <input name="updateButton" 
+                 type="button" 
+                 value="PLAY" 
+                 onclick="change()"
+                 id = "button"
+                 class="control"/>
+          <p class="control">Mouseover the year to move forward and backward in time.</p>
+      </div>
+
+      
+      <aside>
+      <h2>Land Price and Land Sales</h2>
+      <p>Unlike most other countries, land in China is owned by the government. By controlling the amount of land available for sale each year, the government may be able to gain profit by increasing the transaction price. This is the phenomenon that we are interested in: if there is a negative relationship between land price and land sales. We control for urban population and average salary since these are the main two factors influencing the demand for land sales that were used commonly in past literature. In this animated scatterplot, we highlighted major cities vs. minor cities and observed any different relationships across the two groups. </p>
+      <p class="left">Last <a href="zoomin.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
+      <p class="right">Next <a href="index.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
+      </aside>  
+      </div>
+    </div>
+
+
+
+
+    <script type="text/javascript" src="script/script-scatter.js"></script>
+
+</body>
