@@ -1,15 +1,29 @@
-
 body{
   font-family: 'Slabo 27px', serif;
 }
 
-.active{
-  fill:yellow;
+header {
+  display:inline;
+  text-align: center;
+  font-size:30px;
+  font-style:bold;
 }
-.background {
-  fill: none;
-  pointer-events: all;
+
+aside{
+  float:right;
+  width:300px;
 }
+
+a{
+  text-decoration:none;
+  color:#888;
+}
+
+#wrapper{
+  width:1000px;
+  margin:0 auto;
+}
+
 .arrow{
   display:inline-block;
   width:15px;
@@ -23,75 +37,7 @@ body{
   float:left;
 }
 
-
-#wrapper{
-  margin:20px 50px;
-  width:1000px;
-  margin:0 auto;
-}
-
-svg{
-  margin-top:0px;
-  padding-top:0px;
-  margin-left:50px;
-}
-
-#legend svg{
-  float:right;
-  clear:both;
-}
-
-header {
-  margin-left:50px;
-  padding:0 auto;
-  font-size:30px;
-  font-style:bold;
-  clear:both;
-  height:30px;
-}
-
-aside{
-  float:right;
-  width:300px;
-}
-
-.key path {
-  display: none;
-}
-
-.key line {
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-#tooltip {
-    border: 1px solid #FFE9E9;
-    /*width: 200px;*/
-    background-color:#FFE9E9;
-}
-
-#tooltip label {
-    font-style: bold;
-    font-size: 15px;
-    display: block;
-    float: left;
-    font-weight: bold;
-}
-
-.counties {
-  fill: none;
-  stroke: #aaa;
-  stroke-width: 0.2px;
-  stroke-linejoin: round;
-}
-
-.states {
-  fill: none;
-  stroke: #777;
-  stroke-width: 1.5px;
-  stroke-linejoin: round;
-}
-
+/*control line*/
 .control{
   display:inline-block;
   vertical-align: middle;
@@ -108,24 +54,75 @@ aside{
   clear:both;
 }
 
-#range{
-  margin-top:0px;
-  font-style:bolder;
-  font-weight:900;
-  font-size:20px;
-  padding-top:0;
-}
-
 #button, #opts{
   background-color:#FFF;
   border: 1px dotted #ccc; 
   padding:0 auto;
 }
 
-/*scatter*/
+#clock{
+  font-size: 60px;
+  color: #ddd;
+  padding:20px;
+}
 
+
+
+/*animate*/
+.counties {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: 0.2px;
+  stroke-linejoin: round;
+}
+
+.states {
+  fill: none;
+  stroke: #777;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+
+.key path {
+  display: none;
+}
+
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#tooltip {
+    border: 1px solid #FFE9E9;
+    background-color:#FFE9E9;
+}
+
+#tooltip label {
+    display: block;
+    float: left;
+    font-style: bold;
+    font-size: 15px;
+    font-weight: bold;  
+}
+
+#legend svg{
+  float:right;
+  clear:both;
+}
+
+
+
+/*zoomin*/
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+
+
+/*scatter*/
 text {
-  font: 10px sans-serif;
+  font-size: 10px;
 }
 
 .dot {
@@ -138,12 +135,8 @@ text {
   shape-rendering: crispEdges;
 }
 
-.label {
-  fill: #777;
-}
-
-.year.label, #clock{
-  font: 500 60px 'Slabo 27px';
+.year.label{
+  font-size:60px;
   fill: #ddd;
   padding:20px;
 }
@@ -157,4 +150,8 @@ text {
   pointer-events: all;
   cursor: ew-resize;
 }
+
+
+
+
 
