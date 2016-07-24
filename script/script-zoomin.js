@@ -33,7 +33,7 @@ function display_tooltip(name, number, unit){
 }
 
 // declare global variable
-var tooltip = d3.select("#overview").append("div")
+var tooltip = d3.select("#content").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
     .style("position", "absolute")
@@ -47,7 +47,7 @@ var projection=d3.geoMercator().center([105,38]).scale(590).translate([w/2, h/2.
 
 var path=d3.geoPath().projection(projection);
 
-var svg = d3.selectAll("#overview")
+var svg = d3.selectAll("#content")
 			.append("svg")
 			.attr("width", w)
 			.attr("height", h);

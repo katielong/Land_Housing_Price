@@ -33,7 +33,7 @@ function animateMap(){
 }
 
 // declare global variable
-var tooltip = d3.select("#overview").append("div")
+var tooltip = d3.select("#content").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
     .style("position", "absolute")
@@ -51,7 +51,7 @@ var quantize = d3.scaleThreshold()
     .domain([100, 200, 500, 1000, 2000, 5000, 8000, 10000, 12000, 15000, 50000])
     .range(['#a50026','#d73027','#f46d43','#fdae61','#fee090','#ffffbf','#e0f3f8','#abd9e9','#74add1','#4575b4','#313695']);
 
-var svg = d3.selectAll("#overview")
+var svg = d3.selectAll("#content")
       .append("svg")
       .attr("width", w)
       .attr("height", h);
@@ -118,7 +118,7 @@ d3.csv("data.csv",function(csv){
     .tickValues([1500, 3000, 4500, 6000, 7500, 9000, 10500, 12000, 13500])
     .tickFormat(function(d, i) {return arr[i];});   
 
-    var svg2 = d3.selectAll("#overview").append("svg")
+    var svg2 = d3.selectAll("#content").append("svg")
     .attr("id","legend")
     .attr("width", w)
     .attr("height", h);
