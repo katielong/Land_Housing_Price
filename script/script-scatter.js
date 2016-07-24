@@ -1,4 +1,4 @@
-// code adapted from Mike Bostock
+// code adapted from Mike Bostock's Wealth and Health of Nations
 
 // accessor of variable
 function x(d) { return d.resid_area; }
@@ -9,46 +9,39 @@ function key(d) { return d.name; }
 
 var p=d3.precisionFixed(0.5), f=d3.format("." + p + "f");
 
-// Chart dimensions.
 var margin = {top:19.5, right: 0, bottom: 19.5, left: 39.5},
     w = 580 - margin.right,
     h = 450 - margin.top - margin.bottom;
 
-// Various scales. These domains make assumptions of data, naturally.
 var xScale = d3.scaleLinear().domain([0, 5000]).range([0, w]),
     yScale = d3.scaleLinear().domain([0,6500]).range([h, 0]),
     radiusScale = d3.scaleLinear().domain([0, 1800]).range([0, 40]),
     colorScale = d3.scaleThreshold().domain([0.1,1.1]).range(["blue","orange"]);
 
-// The x & y axes.
 var xAxis = d3.axisBottom().scale(xScale).ticks(12, d3.format(",d")),
     yAxis = d3.axisLeft().scale(yScale);
 
-var tooltip = d3.select("#overview").append("div")
+var tooltip = d3.select("#content").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
     .style("position", "absolute")
     .html("<label><span id=\"tt_county\"></span></label>");
 
-// Create the SVG container and set the origin.
-var svg = d3.selectAll("#overview").append("svg")
+var svg = d3.selectAll("#content").append("svg")
     .attr("width", w + margin.left + margin.right)
     .attr("height", h + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Add the x-axis.
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + h + ")")
     .call(xAxis);
 
-// Add the y-axis.
 svg.append("g")
     .attr("class", "y axis")
     .call(yAxis);
 
-// Add an x-axis label.
 svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
@@ -56,7 +49,6 @@ svg.append("text")
     .attr("y", h - 6)
     .text("New Residential Land Sales (Acre)");
 
-// Add a y-axis label.
 svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
@@ -65,7 +57,6 @@ svg.append("text")
     .attr("transform", "rotate(-90)")
     .text("Average Residential Land Price (RMB)");
 
-// Add the year label; the value is set on transition.
 var label = svg.append("text")
     .attr("class", "year label")
     .attr("text-anchor", "end")
@@ -103,7 +94,6 @@ function change(){
             tooltip.style("display", "none");
         });
 
-  // Add an overlay for the year label.
   var box = label.node().getBBox();
 
   var overlay = svg.append("rect")
@@ -114,7 +104,6 @@ function change(){
         .attr("height", box.height)
         .on("mouseover", enableInteraction);
 
-  // Start a transition that interpolates the data based on year.
   svg.transition()
       .duration(10000)
       .tween("year", tweenYear)

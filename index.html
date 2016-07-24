@@ -21,8 +21,10 @@
       <p> Residential Land Price and Housing Price in 281 Chinese cities from 2007-2012</p>
     </header>
 
-	<div id="overview">
+	<div id="content">
     <div id="control-line">
+    <p>Select the Variable before Click PLAY</p>
+
     <select id="opts" class="control" multiple>
           <option value="Residential Land Price">Real Residential Land Price (10,000 RMB/Acre<sup>2</sup>)</option>
           <option value="Housing Price">Real Housing Price(RMB/m<sup>2</sup>)</option>
@@ -44,7 +46,7 @@
     <h3>Research Questions</h3>
     <p>During my internship at <a href="http://www.plc.pku.edu.cn/en/">Lincoln Institute of Land Policy</a>, I helped with a research project looking at a panel dataset on 281 Chinese cities' housing price, residential land price and land sales from 2007-2012. Our goal was to identify the interaction between housing price and residential land price in the context of China's public land ownership, and to examine if land restriction plays any part in influencing land price. </p>
     <p>This animated visualization using d3 intends to give an overview of the dataset. Note that we deflated all price variables by the CPI in the corresponding province using 2000 as the base year. From the visualization we observed that a lot of data were missing from cities in Western China, especially in Tibet, Xinjiang, Qinghai, Sichuan, Yunnan and Inner Mongolia. </p>
-    <p>In the next visualization, we zoom in for more information on each city.</p>
+    <p>GeoJson files were found <a href="https://github.com/zhshi/d3js-footprint">here</a>, and the animation code was modified from <a href="http://bl.ocks.org/rgdonohue/9280446">Rich Donohue</a>. Javascript code to this visualization can be found <a href="https://github.com/katielong/Land_Housing_Price/blob/master/script/script-map-animate.js">here</a>. In the next visualization, we zoom in for more information on each city.</p>
     <p class="right">Next <a href="zoomin.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
     </aside>
 	</div>
