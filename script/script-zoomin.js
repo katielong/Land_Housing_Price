@@ -88,11 +88,11 @@ d3.csv("data.csv",function(csv){
             // tooltip
             d3.select(this).transition().duration(200).style("fill","yellow");
             $("#tt_county").html(d.properties.name + "<br>" +
-            display_tooltip("Mean Real Residential Land Price", resid_price.get(d.id)*10000, "RMB/Acre<sup>2</sup>") + "<br>" +
-            display_tooltip("Mean Real Housing Price", housing_price.get(d.id), "RMB/m <sup>2</sup>") + "<br>" +
+            display_tooltip("Real Residential Land Price", resid_price.get(d.id)*10000, "RMB/Acre<sup>2</sup>") + "<br>" +
+            display_tooltip("Real Housing Price", housing_price.get(d.id), "RMB/m <sup>2</sup>") + "<br>" +
             display_tooltip("New Land Sales", resid_area.get(d.id), "Acre") + "<br>" +
             display_tooltip("Urban Population", pop.get(d.id)*10000, "People") + "<br>" +
-            display_tooltip("Salary", salary.get(d.id), "RMB") + "<br>");
+            display_tooltip("Real Per Capita Income", salary.get(d.id), "RMB") + "<br>");
             })
         .on("mouseout", function() {
             tooltip.style("display", "none");
