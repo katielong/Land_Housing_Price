@@ -98,15 +98,16 @@ a{
 }
 
 #tooltip {
-    border: 1px solid #FFE9E9;
-    background-color:#FFE9E9;
+    border: none;
+    background-color:#FFF;
+    opacity:0.8;
 }
 
 #tooltip label {
     display: block;
     float: left;
     font-style: bold;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;  
 }
 
@@ -154,6 +155,11 @@ text {
   fill: none;
   pointer-events: all;
   cursor: ew-resize;
+}
+
+#legend-text{
+  font-size:15px;
+  padding:0;
 }
 
 

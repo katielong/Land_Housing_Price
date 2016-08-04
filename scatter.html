@@ -27,19 +27,27 @@
       <div id="content">
 
       <div id="control-line">
+          <select class="control" id="major">
+            <option>All</option>
+            <option>Only Major Cities</option>
+            <option>Only Non-major Cities</option>
+          </select>
+
           <input name="updateButton" 
-                 type="button" 
-                 value="PLAY" 
-                 onclick="change()"
-                 id = "button"
-                 class="control"/>
-          <p class="control">Mouseover the year to move forward and backward in time.</p>
+          type="button" 
+          value="PLAY" 
+          onclick="change()"
+          id = "button"
+          class="control"/>
+          <p class="control">Mouseover the Year to move forward and backward in time.</p>
       </div>
 
       
       <aside>
       <h2>Land Price and Land Sales</h2>
-      <p>Unlike most other countries, land in China is owned by the government. By controlling the amount of land available for sale each year, the government may be able to gain profit by increasing the transaction price. This is the phenomenon that we are interested in: if there is a negative relationship between land price and land sales. We control for urban population and average salary since these are the main two factors influencing the demand for land sales that were used commonly in past literature. In this animated scatterplot, we highlighted major cities vs. minor cities and observed any different relationships across the two groups. </p>
+      <p>Unlike most other countries, land in China is owned by the government. By controlling the amount of land available for sale each year, the government may be able to gain profit by increasing the transaction price. This is the phenomenon that we are interested in: if there is a negative relationship between new land sales and land price. We control for urban population and real per capita income. In this visualization, the size of each circle shows population size, and color shows real per capita income. We categorized salary into four groups their inter-quartile range. </p>
+      <p>In general, both average land price and new land sales increased during 2008-2010, but started to shrink after 2010. Major cities clustered around lower-left corner in 2012 compared to 2007, but this was not obvious among non-major cities. If we mouseover to observe the relationship between two variables among similar population-income cities, we found that the negative relationship between land sales and land price was more obvious among the non-major cities. </p>
+
       <p>This animation was modified from Mike Bostock's <a href="https://bost.ocks.org/mike/nations/">The Wealth & Health of Nations. </a>
       </p>
       <p class="left">Last <a href="zoomin.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
