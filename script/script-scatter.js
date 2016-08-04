@@ -58,7 +58,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Average Residential Land Price (RMB)");
+    .text("Average Residential Land Price (*10,000 RMB/Acre)");
 
 var label = svg.append("text")
     .attr("class", "year label")
@@ -91,7 +91,7 @@ var g = legend.append("g")
 legend.append("text")
     .attr("id","legend-text")
     .attr("transform", "translate(" + margin.left + "," + legend_h*3 + ")")
-    .text("Per capita Income (RMB)");
+    .text("Real Per capita Income (RMB)");
 
 g.selectAll("rect")
   .data(colorScale.range().map(function(color){

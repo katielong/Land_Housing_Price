@@ -21,7 +21,7 @@ var xScale = d3.scaleSqrt().domain([400, 8500]).range([0, w]),
     radiusScale = d3.scaleLinear().domain([0, 1800]).range([0, 50]),
     colorScale = d3.scaleThreshold().domain([9889,11380,13470]).range(['#c6dbef','#6baed6','#2171b5','#08306b']);
 
-var xAxis = d3.axisBottom().scale(xScale).ticks(12, d3.format(",d"));
+var xAxis = d3.axisBottom().scale(xScale).ticks(8, d3.format(",d"));
     yAxis = d3.axisLeft().scale(yScale);
 
 var tooltip = d3.select("#content").append("div")
@@ -50,7 +50,7 @@ svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", w)
     .attr("y", h - 6)
-    .text("New Residential Land Sales (Acre)");
+    .text("Average Housing Price (RMB/m2)");
 
 svg.append("text")
     .attr("class", "y label")
@@ -58,7 +58,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Average Residential Land Price (RMB)");
+    .text("Average Residential Land Price (*10,000 RMB/Acre)");
 
 var label = svg.append("text")
     .attr("class", "year label")
@@ -91,7 +91,7 @@ var g = legend.append("g")
 legend.append("text")
     .attr("id","legend-text")
     .attr("transform", "translate(" + margin.left + "," + legend_h*3 + ")")
-    .text("Per capita Income (RMB)");
+    .text("Real Per capita Income (RMB)");
 
 g.selectAll("rect")
   .data(colorScale.range().map(function(color){
