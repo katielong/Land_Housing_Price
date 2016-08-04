@@ -50,7 +50,7 @@ svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", w)
     .attr("y", h - 6)
-    .text("New Residential Land Sales (Acre)");
+    .text("New Land Sales (Acre)");
 
 svg.append("text")
     .attr("class", "y label")
@@ -58,7 +58,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Average Residential Land Price (*10,000 RMB/Acre)");
+    .text("Real Residential Land Price (*10,000 RMB/Acre)");
 
 var label = svg.append("text")
     .attr("class", "year label")
