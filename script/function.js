@@ -42,10 +42,17 @@ function csv2json_scatter(csv){
         namerecord.region = +d.values[0].abv_prov;
 
         namerecord.resid_price = d.values.map(function(c){ return {year: c.year, value: f(+c.resid_price/c.CPI*100)}; });
-        namerecord.resid_area= d.values.map(function(c){ return {year: c.year, value: f(+c.resid_area)}; });
         namerecord.housing_price = d.values.map(function(c){ return {year: c.year, value: f(+c.housing_price/c.CPI*100)}; });
+        namerecord.pop = d.values.map(function(c){ return {year: c.year, value: f(+c.nmzrk)}; }); 
+        namerecord.resid_area= d.values.map(function(c){ return {year: c.year, value: f(+c.resid_area)}; });
+
+        // per capita var
         namerecord.salary = d.values.map(function(c){ return {year: c.year, value: f(+c.each_salary/c.CPI*100)}; });
-        namerecord.pop = d.values.map(function(c){ return {year: c.year, value: f(+c.nmzrk)}; });
+        namerecord.per_resid_area= d.values.map(function(c){ return {year: c.year, value: f(+c.resid_area/c.nmzrk)}; });
+        namerecord.per_ind_area = d.values.map(function(c){ return {year: c.year, value: f(+c.ind_area/c.nmzrk)}; });
+        namerecord.per_houseinvest_re = d.values.map(function(c){ return {year: c.year, value: f(+c.houseinvest_re/c.CPI*100/c.nmzrk)}; });
+
+
         return namerecord;
       });
       

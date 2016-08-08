@@ -54,10 +54,6 @@ a{
   margin-left:50px;
 }
 
-#control-line::after{
-  content:"";
-  clear:both;
-}
 
 #button, #opts{
   background-color:#FFF;
@@ -70,7 +66,11 @@ a{
   color: #ddd;
   padding:20px;
 }
-
+.clearfix:after{
+  display:block;
+  content:"";
+  clear:both;
+}
 
 
 /*animate*/
@@ -162,7 +162,18 @@ text {
   padding:0;
 }
 
+/*scatter two*/
+.x.label, .y.label{
+  font-size:14px;
+}
 
+#content1, #content2{
+  float:left;
+}
+
+#content1 p, #content2 p{
+  text-align:center;
+}
 
 
 
