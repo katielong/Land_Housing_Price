@@ -24,37 +24,36 @@
    <header>
       <p> Housing Price, Residential Land Price and Land Sales in China from 2007-2012</p>
     </header>
-      <div id="content">
+      
 
-      <div id="control-line">
-          <select class="control" id="major">
-            <option>All</option>
-            <option>Only Major Cities</option>
-            <option>Only Non-major Cities</option>
-          </select>
-
+      <div id="control-line" class="clearfix">
           <input name="updateButton" 
           type="button" 
           value="PLAY" 
           onclick="change()"
           id = "button"
           class="control"/>
-          <p class="control">Mouseover the Year to move forward and backward in time.</p>
+
+          <div id="year"></div>
       </div>
 
-      
-      <aside>
-      <h2>Land Price and Housing Price</h2>
-      <p>start here...</p>
+      <div id="content" class="clearfix">
+        <div id="content1">
+        <p>Promoting Effect</p>
+        </div>
+        <div id="content2">
+        <p>Pulling Effect</p>
+        </div>
 
+        <p></p>
+        <p class="left">Last <a href="scatter.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
 
-      <p class="left">Last <a href="scatter.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
-      <p class="right">Next <a href="index.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
-      </aside>  
       </div>
+  
+  
   <footer>Visualization created by <a href="https://katielong.github.io/">Yue Long </a></footer>
     </div>
 
-    <script type="text/javascript" src="script/script-scatter-housing.js"></script>
+    <script type="text/javascript" src="script/test.js"></script>
 
 </body>
