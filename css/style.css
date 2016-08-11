@@ -135,7 +135,7 @@ text {
   stroke: #000;
 }
 
-.axis path, .axis line {
+.axis path, .axis line,{
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
@@ -173,6 +173,12 @@ text {
 
 #content1 p, #content2 p{
   text-align:center;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }
 
 

@@ -18,6 +18,7 @@ function csv2json(csv){
         namerecord.salary = d.values.map(function(c){ return +c.each_salary; });
         namerecord.pop = d.values.map(function(c){ return +c.nmzrk; });
         namerecord.CPI = d.values.map(function(c){ return +c.CPI; });
+        namerecord.year = d.values.map(function(c){ return +c.year});
         
         return namerecord;
       });
