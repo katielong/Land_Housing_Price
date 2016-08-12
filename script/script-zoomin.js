@@ -6,7 +6,7 @@ function clicked(d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-    k = 4;
+    k = 5;
     centered = d;
   } else {
     x = w / 2;
@@ -14,6 +14,7 @@ function clicked(d) {
     k = 1;
     centered = null;
   }
+
   g.selectAll("path")
       .classed("active", centered && function(d) { return d === centered; });
 
@@ -160,7 +161,7 @@ svg.append("rect")
 
 var g=svg.append("g");
 
-var eng_name = d3.map();
+var id_eng = d3.map(), eng_id = d3.map();
 
 
 // variables for line charts
@@ -276,24 +277,21 @@ svg5.append("g")
 // load data files
 d3.csv("data.csv",function(csv){
     var data=csv2json(csv);
-    data.forEach(function(d){eng_name.set(d.cityid, d.city_eng);});
+    data.forEach(function(d){
+        id_eng.set(d.cityid, d.city_eng);
+        eng_id.set(d.city_eng, d.cityid);
+    });
+
 
     d3.json("d3js-footprint-master/data/china_cities.json", function(counties){
         g.append("g")
+            .attr("id", "counties")
             .attr("class", "counties")
             .selectAll("path")
             .data(counties.features)
             .enter()
             .append("path")
-            .style("fill", function(d){
-                if (eng_name.get(d.id)==null){
-                    return ("#AAA");
-                }
-                else return ("#FFF");
-            }) 
             .attr("d", path)
-            .attr("id", function(d) {return d.cityid;})
-            .attr("data-legend",function(d) { return d.name})
             .on("click",function(d){ 
                 d3.selectAll(".line").remove();
                 clicked(d);
@@ -304,29 +302,15 @@ d3.csv("data.csv",function(csv){
                 tooltip.style("display", null)
                 .style("left", m[0] + 5 + "px")
                 .style("top", m[1] - 5 + "px");
-                // tooltip
-                d3.select(this).transition().duration(200).style("fill", function(d){
-                    if (eng_name.get(d.id)==null){
-                        return ("#AAA");
-                    }
-                    else return ("yellow");
-                });
 
-                if (eng_name.get(d.id)!=null){
-                    $("#tt_county").html(eng_name.get(d.id));
+                if (id_eng.get(d.id)!=null){
+                    $("#tt_county").html(id_eng.get(d.id));
                 } else {
                     $("#tt_county").html("No Data Available");
-                }
-                    
+                }     
             })
             .on("mouseout", function() {
                 tooltip.style("display", "none");
-                d3.select(this).transition().duration(200).style("fill",function(d){
-                if (eng_name.get(d.id)==null){
-                    return ("#AAA");
-                }
-                else return ("#FFF");
-                });
             });
 
             // province
@@ -339,6 +323,17 @@ d3.csv("data.csv",function(csv){
                 .append("path")
                 .attr("d", path);
         });
+
+            // enable search
+            d3.select("#search").on("input", function(d){
+                var city = this.value,
+                    city_json = counties.features.filter(function(d){
+                        return d.id==eng_id.get(city);
+                    })[0];
+                d3.selectAll(".line").remove();  
+                clicked(city_json);
+                lines(city_json);
+            });
     });
 
     function lines(d){
@@ -361,6 +356,8 @@ d3.csv("data.csv",function(csv){
     }
 
 });
+
+
 
 
 

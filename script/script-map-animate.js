@@ -80,7 +80,7 @@ d3.csv("data.csv",function(csv){
         .append("path")
         .style("fill", function(d) {return quantize(newdata.get(d.id)); }) 
         .attr("d", path)    
-        .attr("id", function(d) {return d.cityid;})
+        .attr("id", function(d) {return eng_name.get(d.id);})
         .attr("data-legend",function(d) { return d.name})
         .on("mouseover", function(d) {
             var m = d3.mouse(d3.select("body").node());
