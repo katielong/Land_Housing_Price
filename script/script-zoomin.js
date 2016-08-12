@@ -24,15 +24,6 @@ function clicked(d) {
 }
 
 
-function display_tooltip(name, number, unit){
-    if (number==null || isNaN(number)==true){
-        return name + ": " + "NA";
-    }else {
-        return name + ": " + f_comma(number)+" "+unit;
-    }
-}
-
-
 function line1(d){
     var max = d3.max(d,function(d){return d.housing_price;});
 
@@ -139,6 +130,8 @@ function line5(d){
 
 
 
+
+
 // declare global variable
 var tooltip = d3.select("#map").append("div")
     .attr("id", "tooltip")
@@ -148,7 +141,7 @@ var tooltip = d3.select("#map").append("div")
 
 var w=650, h=500, currentyear=2007, centered;
 
-var p=d3.precisionFixed(0.5), f=d3.format("." + p + "f"), f_comma = d3.format(",");
+var p=d3.precisionFixed(0.5), f=d3.format("." + p + "f");
 
 var projection=d3.geoMercator().center([105,38]).scale(590).translate([w/2, h/2.1]);
 
@@ -167,12 +160,12 @@ svg.append("rect")
 
 var g=svg.append("g");
 
-var eng_name = d3.map(), resid_area = d3.map(), resid_price = d3.map(), 
-    housing_price = d3.map(), pop=d3.map(),  salary = d3.map();
+var eng_name = d3.map();
 
 
-// lines
-var margin = {top: 10, right: 30, bottom: 20, left: 30},
+// variables for line charts
+// these width and height are for line charts
+var margin = {top: 10, right: 30, bottom: 20, left: 50},
     width = w/2-margin.left,
     height = h/5-margin.top-margin.bottom,
     xScale=d3.scaleLinear()
@@ -186,6 +179,7 @@ var xAxis = d3.axisBottom().scale(xScale).ticks(3, d3.format("")).tickValues([20
 
 
 
+// SVGs
 // svg1
 var svg1 = d3.select("#year-chart1")
             .append("svg")
@@ -282,7 +276,7 @@ svg5.append("g")
 // load data files
 d3.csv("data.csv",function(csv){
     var data=csv2json(csv);
-    map_multiple(data,currentyear);
+    data.forEach(function(d){eng_name.set(d.cityid, d.city_eng);});
 
     d3.json("d3js-footprint-master/data/china_cities.json", function(counties){
         g.append("g")
@@ -296,8 +290,8 @@ d3.csv("data.csv",function(csv){
                     return ("#AAA");
                 }
                 else return ("#FFF");
-            }) //get the value for the given key
-            .attr("d", path)    //this line draw the paths for counties
+            }) 
+            .attr("d", path)
             .attr("id", function(d) {return d.cityid;})
             .attr("data-legend",function(d) { return d.name})
             .on("click",function(d){ 
@@ -350,12 +344,13 @@ d3.csv("data.csv",function(csv){
     function lines(d){
         var id = d.id, target = data.filter(function(d){return d.cityid===id;})[0];
         var out=[];
+        var f2 = d3.format(".0f");
         for (i=0;i<=6;i++){
-            out[i] = {housing_price: +target.housing_price[i], 
-                      resid_price: +target.resid_price[i],
-                      resid_area: +target.resid_area[i],
-                      pop: +target.pop[i],
-                      salary: +target.salary[i],
+            out[i] = {housing_price: +target.housing_price[i]/100, 
+                      resid_price: +target.resid_price[i]/100,
+                      resid_area: +target.resid_area[i]/100,
+                      pop: +target.pop[i]/10,
+                      salary: +target.salary[i]/1000,
                       year: +target.year[i]};}
 
         line1(out);
