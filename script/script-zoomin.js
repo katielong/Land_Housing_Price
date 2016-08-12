@@ -34,62 +34,113 @@ function display_tooltip(name, number, unit){
 
 
 function line1(d){
-    yScale.domain([0, d3.max(d.housing_price)]);
+    var max = d3.max(d,function(d){return d.housing_price;});
+
+    yScale.domain([0, max]);
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
     
     d3.select("#year-chart1")
         .selectAll(".y")
         .transition()
         .call(yAxis);
+
+    var line = d3.line()
+                .x(function(d){return xScale(d.year);})
+                .y(function(d){return yScale(d.housing_price);});
+
+    svg1.append("path")
+        .attr("class","line")
+        .attr("d",line(d));
+
+    svg1.on("mouseover",function(d){
+
+    })
 }
 
 function line2(d){
-    yScale.domain([0, d3.max(d.resid_price)]);    
+    var max = d3.max(d,function(d){return d.resid_price;});
+    yScale.domain([0, max]);    
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
     
     d3.select("#year-chart2")
         .selectAll(".y")
         .transition()
         .call(yAxis);
+
+    var line = d3.line()
+            .x(function(d){return xScale(d.year);})
+            .y(function(d){return yScale(d.resid_price);});
+
+    svg2.append("path")
+    .attr("class","line")
+    .attr("d",line(d));
+
 }
 
 
 function line3(d){
-    yScale.domain([0, d3.max(d.resid_area)]);
+    var max = d3.max(d,function(d){return d.resid_area;});
+    yScale.domain([0, max]);  
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
     
     d3.select("#year-chart3")
         .selectAll(".y")
         .transition()
         .call(yAxis);
+
+    var line = d3.line()
+            .x(function(d){return xScale(d.year);})
+            .y(function(d){return yScale(d.resid_area);});
+
+    svg3.append("path")
+    .attr("class","line")
+    .attr("d",line(d));
 }
 
 function line4(d){
-    yScale.domain([0, d3.max(d.salary)]);    
+    var max = d3.max(d,function(d){return d.salary;});
+    yScale.domain([0, max]);   
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
     
     d3.select("#year-chart4")
         .selectAll(".y")
-        .transition()
         .call(yAxis);
+
+    var line = d3.line()
+            .x(function(d){return xScale(d.year);})
+            .y(function(d){return yScale(d.salary);});
+
+    svg4.append("path")
+    .attr("class","line")
+    .attr("d",line(d));
 
 }
 
 function line5(d){
-    yScale.domain([0, d3.max(d.pop)]);
+    var max = d3.max(d,function(d){return d.pop;});
+    yScale.domain([0, max]);  
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
     
     d3.select("#year-chart5")
         .selectAll(".y")
         .transition()
         .call(yAxis);
+
+
+    var line = d3.line()
+            .x(function(d){return xScale(d.year);})
+            .y(function(d){return yScale(d.pop);});
+
+    svg5.append("path")
+    .attr("class","line")
+    .attr("d",line(d));
 }
 
 
 
 
 // declare global variable
-var tooltip = d3.select("#content").append("div")
+var tooltip = d3.select("#map").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
     .style("position", "absolute")
@@ -103,7 +154,7 @@ var projection=d3.geoMercator().center([105,38]).scale(590).translate([w/2, h/2.
 
 var path=d3.geoPath().projection(projection);
 
-var svg = d3.selectAll("#content")
+var svg = d3.selectAll("#map")
 			.append("svg")
 			.attr("width", w)
 			.attr("height", h);
@@ -133,15 +184,7 @@ var margin = {top: 10, right: 30, bottom: 20, left: 30},
 var xAxis = d3.axisBottom().scale(xScale).ticks(3, d3.format("")).tickValues([2008,2010,2012]),
     yAxis = d3.axisLeft().scale(yScale).ticks(6,tickFormat);
 
-// var line = d3.line().x(function(d){return xScale(d.year);})
-//                     .y(function(d){return yScale(d.housing_price);});
 
-// var data0 = {year:[2007,2008,2009,2010,2011,2012],
-//             housing_price:[0,0,0,0,0,0],
-//             resid_price:[0,0,0,0,0,0],
-//             resid_area:[0,0,0,0,0,0],
-//             pop:[0,0,0,0,0,0],
-//             salary:[0,0,0,0,0,0]}
 
 // svg1
 var svg1 = d3.select("#year-chart1")
@@ -248,31 +291,48 @@ d3.csv("data.csv",function(csv){
             .data(counties.features)
             .enter()
             .append("path")
-            .style("fill", "#FFF") //get the value for the given key
+            .style("fill", function(d){
+                if (eng_name.get(d.id)==null){
+                    return ("#AAA");
+                }
+                else return ("#FFF");
+            }) //get the value for the given key
             .attr("d", path)    //this line draw the paths for counties
             .attr("id", function(d) {return d.cityid;})
             .attr("data-legend",function(d) { return d.name})
-            .on("click",function(d){
+            .on("click",function(d){ 
+                d3.selectAll(".line").remove();
                 clicked(d);
                 lines(d);
             })
             .on("mouseover", function(d) {
                 var m = d3.mouse(d3.select("body").node());
                 tooltip.style("display", null)
-                .style("left", m[0] + 10 + "px")
-                .style("top", m[1] - 10 + "px");
+                .style("left", m[0] + 5 + "px")
+                .style("top", m[1] - 5 + "px");
                 // tooltip
-                d3.select(this).transition().duration(200).style("fill","yellow");
-                $("#tt_county").html(d.properties.name + "<br>" +
-                display_tooltip("Real Residential Land Price", resid_price.get(d.id)*10000, "RMB/Acre") + "<br>" +
-                display_tooltip("Real Housing Price", housing_price.get(d.id), "RMB/m <sup>2</sup>") + "<br>" +
-                display_tooltip("New Land Sales", resid_area.get(d.id), "Acre") + "<br>" +
-                display_tooltip("Urban Population", pop.get(d.id)*10000, "People") + "<br>" +
-                display_tooltip("Real Per Capita Income", salary.get(d.id), "RMB") + "<br>");
-                })
+                d3.select(this).transition().duration(200).style("fill", function(d){
+                    if (eng_name.get(d.id)==null){
+                        return ("#AAA");
+                    }
+                    else return ("yellow");
+                });
+
+                if (eng_name.get(d.id)!=null){
+                    $("#tt_county").html(eng_name.get(d.id));
+                } else {
+                    $("#tt_county").html("No Data Available");
+                }
+                    
+            })
             .on("mouseout", function() {
                 tooltip.style("display", "none");
-                d3.select(this).transition().duration(200).style("fill","#FFF");
+                d3.select(this).transition().duration(200).style("fill",function(d){
+                if (eng_name.get(d.id)==null){
+                    return ("#AAA");
+                }
+                else return ("#FFF");
+                });
             });
 
             // province
@@ -287,15 +347,23 @@ d3.csv("data.csv",function(csv){
         });
     });
 
-function lines(d){
-    var id = d.id, target = data.filter(function(d){return d.cityid===id;})[0];
-    line1(target);
-    line2(target);
-    line3(target);
-    line4(target);
-    line5(target);
-}
+    function lines(d){
+        var id = d.id, target = data.filter(function(d){return d.cityid===id;})[0];
+        var out=[];
+        for (i=0;i<=6;i++){
+            out[i] = {housing_price: +target.housing_price[i], 
+                      resid_price: +target.resid_price[i],
+                      resid_area: +target.resid_area[i],
+                      pop: +target.pop[i],
+                      salary: +target.salary[i],
+                      year: +target.year[i]};}
 
+        line1(out);
+        line2(out);
+        line3(out);
+        line4(out);
+        line5(out);
+    }
 
 });
 

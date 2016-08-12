@@ -181,5 +181,13 @@ text {
   stroke-width: 1.5px;
 }
 
+#map{
+  float:left;
+}
+
+.current path{
+  fill:yellow;
+}
+
 
 
