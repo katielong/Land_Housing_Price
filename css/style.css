@@ -144,6 +144,16 @@ a{
   fill:yellow;
 }
 
+rect{
+  fill:#666;
+  opacity:0.6;
+}
+
+.line2 {
+  fill: none;
+  stroke: red;
+  stroke-width: 1.5px;
+}
 
 
 
@@ -202,6 +212,7 @@ text {
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
 
 
 
