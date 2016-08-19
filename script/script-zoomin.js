@@ -10,7 +10,7 @@ function clicked(d) {
     centered = d;
   } else {
     x = w / 2;
-    y = h / 2;
+    y = h / 22;
     k = 1;
     centered = null;
   }
@@ -32,10 +32,9 @@ function chart1(d){
     yScale.domain([0, max]);
     yScale2.domain([0, max2]);
     
-    yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    yAxis2 = d3.axisRight().scale(yScale2).ticks(4,d3.format(""));
-
-    
+    yAxis = d3.axisLeft().scale(yScale).ticks(6,d3.format("")).tickSizeOuter(0);
+    yAxis2 = d3.axisRight().scale(yScale2).ticks(6,d3.format("")).tickSizeOuter(0);
+  
     d3.select("#year-chart1")
         .selectAll(".y")
         .transition()
@@ -45,7 +44,6 @@ function chart1(d){
         .selectAll(".y2")
         .transition()
         .call(yAxis2);
-
 
     var line = d3.line()
                 .x(function(d){return xScale(d.year);})
@@ -63,6 +61,20 @@ function chart1(d){
         .attr("class","line2")
         .attr("d",line2(d));
 
+    svg1.selectAll(".dot")
+        .data(d)
+        .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d){return xScale(d.year);})
+        .attr("cy", function(d){return yScale(d.housing_price);})
+
+    svg1.selectAll(".dot")
+        .data(d)
+        .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d){return xScale(d.year);})
+        .attr("cy", function(d){return yScale2(d.resid_price);})
+
 
 }
 
@@ -73,8 +85,8 @@ function chart2(d){
     yScale.domain([0, max]); 
     yScale3.domain([0, max3]);
 
-    yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    yAxis3 = d3.axisRight().scale(yScale3).ticks(4,d3.format(""));
+    yAxis = d3.axisLeft().scale(yScale).ticks(6,d3.format("")).tickSizeOuter(0);
+    yAxis3 = d3.axisRight().scale(yScale3).ticks(6,d3.format("")).tickSizeOuter(0);
 
     d3.select("#year-chart2")
         .selectAll(".y")
@@ -86,28 +98,35 @@ function chart2(d){
         .transition()
         .call(yAxis3);
 
-    svg2.selectAll(".bar")
-    .data(d)
-    .enter()
-    .append("rect")
-    .attr("x", function(d){return xScale_bar(d.year);})
-    .attr("y", function(d){return yScale(d.resid_area);})
-    .attr("width", "40px")
-    .attr("height", function(d){return height - yScale(d.resid_area);});
-
-    
     var line = d3.line()
             .x(function(d){return xScale(d.year);})
             .y(function(d){return yScale3(d.resid_price);});
+    
+    svg2.selectAll(".dot")
+        .data(d)
+        .enter().append("circle")
+        .attr("r", 3)
+        .attr("cx", function(d){return xScale(d.year);})
+        .attr("cy", function(d){return yScale3(d.resid_price);})
+
 
     svg2.append("path")
         .attr("class","line2")
         .attr("d",line(d));
+
+    svg2.selectAll(".bar")
+        .data(d)
+        .enter()
+        .append("rect")
+        .attr("x", function(d){return xScale_bar(d.year);})
+        .attr("width", "39px")
+        .attr("y", function(d){return yScale(d.resid_area);})
+        .attr("height", function(d){return height - yScale(d.resid_area);});
 }
 
 
 
-// declare global variable
+// global variable
 var tooltip = d3.select("#map").append("div")
     .attr("id", "tooltip")
     .style("display", "none")
@@ -138,21 +157,40 @@ var id_eng = d3.map(), eng_id = d3.map();
 
 
 // variables for charts
-// these width and height are for line charts
 var margin = {top: 20, right: 30, bottom: 20, left: 50},
     width = w/2-margin.left,
     height = h/2-margin.top-margin.bottom,
-    xScale=d3.scaleLinear()
-            .domain([2007,2012])
+    pos=[];
+
+// position for tick values
+for (i=0;i<6;i++){
+    pos.push(3*(2*i+1)+39.83*i);}
+pos.push(275);
+
+var xScale=d3.scaleLinear()
+            .domain([2006.5,2012.5])
             .range([0,width]),
     xScale_bar = d3.scaleOrdinal()
-                .domain([2007,2008,2009,2010,2011,2012])
-                .range([3, 49, 95, 141, 187, 233]);
-    yScale = d3.scaleLinear().range([height, 0]), yScale2 = d3.scaleLinear().range([height, 0]),yScale3 = d3.scaleLinear().range([height, 0]),
+                .domain([2007,2008,2009,2010,2011,2012,2013])
+                .range(pos),
+
+    yScale = d3.scaleLinear().range([height, 0]), 
+    yScale2 = d3.scaleLinear().range([height, 0]),
+    yScale3 = d3.scaleLinear().range([height, 0]),
     tickFormat = d3.format(",");
 
-var xAxis = d3.axisBottom().scale(xScale).ticks(3, d3.format("")).tickValues([2008,2010,2012]),
-    yAxis = d3.axisLeft().scale(yScale), yAxis2 = d3.axisRight().scale(yScale2), yAxis3 = d3.axisRight().scale(yScale3);
+var xAxis = d3.axisBottom()
+                .scale(xScale)
+                .ticks(6, d3.format(""))
+                .tickValues([2007,2008,2009,2010,2011,2012]),
+    xAxis_bar = d3.axisBottom()
+                .scale(xScale_bar)
+                .ticks(6, d3.format(""))
+                .tickValues([2007,2008,2009,2010,2011,2012]),
+
+    yAxis = d3.axisLeft().scale(yScale), 
+    yAxis2 = d3.axisRight().scale(yScale2), 
+    yAxis3 = d3.axisRight().scale(yScale3);
 
 
 
@@ -176,19 +214,19 @@ svg1.append("g")
 
 svg1.append("g")
     .attr("class", "y2 axis")
-    .attr("transform", "translate(" + (width-10) + ",0)")
+    .attr("transform", "translate(" + width + ",0)")
     .call(yAxis2);
 
 svg1.append("text")
     .attr("text-anchor", "end")
-    .attr("x", margin.left+20)
+    .attr("x", margin.left+40)
     .attr("y", -10)
     .style("fill","steelblue")
     .text("Real Housing Price(1000 RMB/m2)");
 
 svg1.append("text")
     .attr("text-anchor", "end")
-    .attr("x", width+20)
+    .attr("x", width+margin.right)
     .attr("y", -10)
     .style("fill","red")
     .text("Residential Land Price(100,000RMB/Acre)");
@@ -225,7 +263,7 @@ svg2.append("text")
 
 svg2.append("text")
     .attr("text-anchor", "end")
-    .attr("x", width+20)
+    .attr("x", width+margin.right)
     .attr("y", -10)
     .style("fill","red")
     .text("Residential Land Price(100,000RMB/Acre)");
@@ -253,6 +291,7 @@ d3.csv("data.csv",function(csv){
                 d3.selectAll(".line").remove();
                 d3.selectAll(".line2").remove();
                 d3.selectAll("rect").remove();
+                d3.selectAll("circle").remove();
                 clicked(d);
                 lines(d);
             })
@@ -292,6 +331,7 @@ d3.csv("data.csv",function(csv){
                 d3.selectAll(".line").remove();
                 d3.selectAll(".line2").remove();
                 d3.selectAll("rect").remove();  
+                d3.selectAll("circle").remove();
                 clicked(city_json);
                 lines(city_json);
             });
