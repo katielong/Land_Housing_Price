@@ -145,7 +145,7 @@ a{
 }
 
 rect{
-  fill:#666;
+  fill:#777;
   opacity:0.6;
 }
 
@@ -154,7 +154,6 @@ rect{
   stroke: red;
   stroke-width: 1.5px;
 }
-
 
 
 
@@ -178,10 +177,6 @@ text {
   fill: #ddd;
   padding:20px;
 }
-
-/*.year.label.active {
-  fill: #aaa;
-}*/
 
 .overlay {
   fill: none;
