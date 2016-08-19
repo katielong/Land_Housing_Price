@@ -10,7 +10,7 @@ function clicked(d) {
     centered = d;
   } else {
     x = w / 2;
-    y = h / 22;
+    y = h / 2;
     k = 1;
     centered = null;
   }
