@@ -25,111 +25,85 @@ function clicked(d) {
 }
 
 
-function line1(d){
-    var max = d3.max(d,function(d){return d.housing_price;});
+function chart1(d){
+    var max = d3.max(d,function(d){return d.housing_price;}),
+        max2 = d3.max(d,function(d){return d.resid_price;});
 
     yScale.domain([0, max]);
+    yScale2.domain([0, max2]);
+    
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
+    yAxis2 = d3.axisRight().scale(yScale2).ticks(4,d3.format(""));
+
     
     d3.select("#year-chart1")
         .selectAll(".y")
         .transition()
         .call(yAxis);
 
+    d3.select("#year-chart1")
+        .selectAll(".y2")
+        .transition()
+        .call(yAxis2);
+
+
     var line = d3.line()
                 .x(function(d){return xScale(d.year);})
-                .y(function(d){return yScale(d.housing_price);});
+                .y(function(d){return yScale(d.housing_price);}),
+
+        line2 = d3.line()
+                .x(function(d){return xScale(d.year)})
+                .y(function(d){return yScale2(d.resid_price);});
 
     svg1.append("path")
         .attr("class","line")
         .attr("d",line(d));
 
-    svg1.on("mouseover",function(d){
+    svg1.append("path")
+        .attr("class","line2")
+        .attr("d",line2(d));
 
-    })
+
 }
 
-function line2(d){
-    var max = d3.max(d,function(d){return d.resid_price;});
-    yScale.domain([0, max]);    
+function chart2(d){
+    var max = d3.max(d,function(d){return d.resid_area;}),
+    max3 = d3.max(d,function(d){return d.resid_price;});
+
+    yScale.domain([0, max]); 
+    yScale3.domain([0, max3]);
+
     yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    
+    yAxis3 = d3.axisRight().scale(yScale3).ticks(4,d3.format(""));
+
     d3.select("#year-chart2")
         .selectAll(".y")
         .transition()
         .call(yAxis);
 
+    d3.select("#year-chart2")
+        .selectAll(".y2")
+        .transition()
+        .call(yAxis3);
+
+    svg2.selectAll(".bar")
+    .data(d)
+    .enter()
+    .append("rect")
+    .attr("x", function(d){return xScale_bar(d.year);})
+    .attr("y", function(d){return yScale(d.resid_area);})
+    .attr("width", "40px")
+    .attr("height", function(d){return height - yScale(d.resid_area);});
+
+    
     var line = d3.line()
             .x(function(d){return xScale(d.year);})
-            .y(function(d){return yScale(d.resid_price);});
+            .y(function(d){return yScale3(d.resid_price);});
 
     svg2.append("path")
-    .attr("class","line")
-    .attr("d",line(d));
-
+        .attr("class","line2")
+        .attr("d",line(d));
 }
-
-
-function line3(d){
-    var max = d3.max(d,function(d){return d.resid_area;});
-    yScale.domain([0, max]);  
-    yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    
-    d3.select("#year-chart3")
-        .selectAll(".y")
-        .transition()
-        .call(yAxis);
-
-    var line = d3.line()
-            .x(function(d){return xScale(d.year);})
-            .y(function(d){return yScale(d.resid_area);});
-
-    svg3.append("path")
-    .attr("class","line")
-    .attr("d",line(d));
-}
-
-function line4(d){
-    var max = d3.max(d,function(d){return d.salary;});
-    yScale.domain([0, max]);   
-    yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    
-    d3.select("#year-chart4")
-        .selectAll(".y")
-        .call(yAxis);
-
-    var line = d3.line()
-            .x(function(d){return xScale(d.year);})
-            .y(function(d){return yScale(d.salary);});
-
-    svg4.append("path")
-    .attr("class","line")
-    .attr("d",line(d));
-
-}
-
-function line5(d){
-    var max = d3.max(d,function(d){return d.pop;});
-    yScale.domain([0, max]);  
-    yAxis = d3.axisLeft().scale(yScale).ticks(4,d3.format(""));
-    
-    d3.select("#year-chart5")
-        .selectAll(".y")
-        .transition()
-        .call(yAxis);
-
-
-    var line = d3.line()
-            .x(function(d){return xScale(d.year);})
-            .y(function(d){return yScale(d.pop);});
-
-    svg5.append("path")
-    .attr("class","line")
-    .attr("d",line(d));
-}
-
-
-
 
 
 
@@ -160,23 +134,25 @@ svg.append("rect")
     .on("click",clicked);
 
 var g=svg.append("g");
-
 var id_eng = d3.map(), eng_id = d3.map();
 
 
-// variables for line charts
+// variables for charts
 // these width and height are for line charts
-var margin = {top: 10, right: 30, bottom: 20, left: 50},
+var margin = {top: 20, right: 30, bottom: 20, left: 50},
     width = w/2-margin.left,
-    height = h/5-margin.top-margin.bottom,
+    height = h/2-margin.top-margin.bottom,
     xScale=d3.scaleLinear()
             .domain([2007,2012])
             .range([0,width]),
-    yScale= d3.scaleLinear().range([height, 0]),
+    xScale_bar = d3.scaleOrdinal()
+                .domain([2007,2008,2009,2010,2011,2012])
+                .range([3, 49, 95, 141, 187, 233]);
+    yScale = d3.scaleLinear().range([height, 0]), yScale2 = d3.scaleLinear().range([height, 0]),yScale3 = d3.scaleLinear().range([height, 0]),
     tickFormat = d3.format(",");
 
 var xAxis = d3.axisBottom().scale(xScale).ticks(3, d3.format("")).tickValues([2008,2010,2012]),
-    yAxis = d3.axisLeft().scale(yScale).ticks(6,tickFormat);
+    yAxis = d3.axisLeft().scale(yScale), yAxis2 = d3.axisRight().scale(yScale2), yAxis3 = d3.axisRight().scale(yScale3);
 
 
 
@@ -198,6 +174,25 @@ svg1.append("g")
     .attr("class", "y axis")
     .call(yAxis);
 
+svg1.append("g")
+    .attr("class", "y2 axis")
+    .attr("transform", "translate(" + (width-10) + ",0)")
+    .call(yAxis2);
+
+svg1.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", margin.left+20)
+    .attr("y", -10)
+    .style("fill","steelblue")
+    .text("Real Housing Price(1000 RMB/m2)");
+
+svg1.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width+20)
+    .attr("y", -10)
+    .style("fill","red")
+    .text("Residential Land Price(100,000RMB/Acre)");
+
 
 // svg2
 var svg2 = d3.select("#year-chart2")
@@ -216,63 +211,25 @@ svg2.append("g")
     .attr("class", "y axis")
     .call(yAxis);
 
+svg2.append("g")
+    .attr("class", "y2 axis")
+    .attr("transform", "translate(" + width + ",0)")
+    .call(yAxis3);
 
+svg2.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", margin.left)
+    .attr("y", -10)
+    .style("fill","#666")
+    .text("New Land Sales (Acre)");
 
-// svg3
-var svg3 = d3.select("#year-chart3")
-            .append("svg")
-            .attr("width",width+margin.left+margin.right)
-            .attr("height",height+margin.top+margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg3.append("g")
-    .attr("class","x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg3.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-
-
-// svg4
-var svg4 = d3.select("#year-chart4")
-            .append("svg")
-            .attr("width",width+margin.left+margin.right)
-            .attr("height",height+margin.top+margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg4.append("g")
-    .attr("class","x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg4.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
+svg2.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width+20)
+    .attr("y", -10)
+    .style("fill","red")
+    .text("Residential Land Price(100,000RMB/Acre)");
     
-
-
-// svg5
-var svg5 = d3.select("#year-chart5")
-            .append("svg")
-            .attr("width",width+margin.left+margin.right)
-            .attr("height",height+margin.top+margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg5.append("g")
-    .attr("class","x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-svg5.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-
-
 
 // load data files
 d3.csv("data.csv",function(csv){
@@ -294,6 +251,8 @@ d3.csv("data.csv",function(csv){
             .attr("d", path)
             .on("click",function(d){ 
                 d3.selectAll(".line").remove();
+                d3.selectAll(".line2").remove();
+                d3.selectAll("rect").remove();
                 clicked(d);
                 lines(d);
             })
@@ -330,7 +289,9 @@ d3.csv("data.csv",function(csv){
                     city_json = counties.features.filter(function(d){
                         return d.id==eng_id.get(city);
                     })[0];
-                d3.selectAll(".line").remove();  
+                d3.selectAll(".line").remove();
+                d3.selectAll(".line2").remove();
+                d3.selectAll("rect").remove();  
                 clicked(city_json);
                 lines(city_json);
             });
@@ -340,19 +301,14 @@ d3.csv("data.csv",function(csv){
         var id = d.id, target = data.filter(function(d){return d.cityid===id;})[0];
         var out=[];
         var f2 = d3.format(".0f");
-        for (i=0;i<=6;i++){
+        for (i=0;i<=5;i++){
             out[i] = {housing_price: +target.housing_price[i]/100, 
                       resid_price: +target.resid_price[i]/100,
                       resid_area: +target.resid_area[i]/100,
-                      pop: +target.pop[i]/10,
-                      salary: +target.salary[i]/1000,
                       year: +target.year[i]};}
 
-        line1(out);
-        line2(out);
-        line3(out);
-        line4(out);
-        line5(out);
+        chart1(out);
+        chart2(out);
     }
 
 });
