@@ -1,55 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<title>Zoom-in For Details</title>
-<head>	
-<meta charset="utf-8">
-
+<html>
+<title>Overview Animation</title>
+<head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
+
     <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
     <!-- d3 library -->
     <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     <!-- d3-geo library -->
     <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
     <!-- jquery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>     
     <!-- local function -->
     <script type="text/javascript" src="script/function.js"></script>
 </head>
 
 <body>
-  
-  <div id="wrapper">
-    <div id="content" class="clearfix">
-      <div class="clearfix">
-        <input id="search" placeholder="Search here: i.e. Beijing">
-        <p>Or click anywhere to zoom in</p>
-      </div>
+<div id="wrapper">
+   <header>
+      <p> Housing Prices, Resid Land Prices and Land Sales in 281 Chinese Cities (2007-2012)</p>    
+   </header>
 
-      <div id="map">
-      </div>
+	<div id="content">
+    <div id="control-line" class="clearfix">
+    <p>Select the Variable and play, stop if wanted, and mouseover for value</p>
+    <select id="opts" class="control" multiple>
+          <option value="Residential Land Price">Real Residential Land Price (10,000 RMB/Acre)</option>
+          <option value="Housing Price">Real Housing Price(RMB/m2)</option>
+          <option value="New Land Sales">New Land Sales (Acre)</option>
+          <option value="Urban Population">Urban Population (10,000)</option>
+          <option value="Salary">Real Per Capita Income (RMB)</option>
+    </select>
 
-      <aside>
-        <div id="year-chart1" class="display"></div>   
-        <div id="year-chart2" class="display"></div>
-      </aside>
+    <input name="updateButton" 
+      type="button" 
+      value="PLAY" 
+      onclick="animateMap()"
+      id="button"/>
+    <span id="clock">Year</span>
+
     </div>
 
-    <div id="description" class="clearfix">
-      <h2>Zoom-in for details</h2>
-      <p>This d3 visualization modified from <a href = "https://bl.ocks.org/mbostock/2206590">Mike Bostock</a> enables viewers to zoom in and view trends of land price, land sales and housing price for each city. </p>
-      <p>In the first chart, we observed that in some cities like <em>Hangzhou</em>, housing prices followed the trends of land prices, while in other cities such as <em>Jiujiang</em>, land prices seemed to be promoted by housing prices. </p>
-      <p>In the second chart, we found that land prices and new land sales were oftentimes negatively related, this can be observed in many cities such as <em>Liupanshui, Yan'an, Xinzhou Ankang</em>.</p>
-      <p>In the next visualization, we will apply an animated scatterplot to look closer to the relationship between land prices and new land sales, controlling for population and salary.</p>
-      <p class="left">Last <a href="index.html" ><img src="images/left_arrow.png" class="arrow"></a></p>
-      <p class="right">Next <a href="scatter.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
-    </div>
+    <aside>
+    <h2>Research Questions</h2>
+    <p>During my internship at <a href="http://www.plc.pku.edu.cn/en/">Lincoln Institute of Land Policy</a>, I helped with a research project looking at a panel dataset on 281 Chinese cities' housing price, residential land price and land sales from 2007-2012. Our goal was to identify the interaction between housing price and residential land price in the context of China's public land ownership, and to examine if land restriction plays any part in influencing land price. </p>
+    <p>This animated visualization using d3 intends to give an overview of the dataset. Note that we deflated all price variables by the CPI in the corresponding province using 2000 as the base year. From the visualization we observed that a lot of data were missing from cities in Western China, especially in Tibet, Xinjiang, Qinghai, Sichuan, Yunnan and Inner Mongolia. </p>
+    <p>GeoJson files were found <a href="https://github.com/zhshi/d3js-footprint">here</a>, and the animation code was modified from <a href="http://bl.ocks.org/rgdonohue/9280446">Rich Donohue</a>. Javascript code to this visualization can be found <a href="https://github.com/katielong/Land_Housing_Price/blob/master/script/script-map-animate.js">here</a>. In the next visualization, we zoom in for more information on each city.</p>
+    <p class="right">Next <a href="zoomin.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
+    </aside>
+	</div>
 
-    <footer>Visualization created by <a href="https://katielong.github.io/">Yue Long </a></footer>
-  </div>
- 
-
-  <script type="text/javascript" src="script/script-zoomin.js"></script>
-  </body>
+  <footer>Visualization created by <a href="https://katielong.github.io/">Yue Long </a></footer>
+</div>
+<script type="text/javascript" src="script/script-map-animate.js"></script>
+</body>
+</html>
