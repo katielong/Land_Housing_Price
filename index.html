@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html>
 <title>Overview Animation</title>
-<head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
 
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
     <!-- d3 library -->
     <script type="text/javascript" src="https://d3js.org/d3.v4.js" charset="utf-8"></script>
     <!-- d3-geo library -->
     <script type="text/javascript" src="https://d3js.org/d3-geo.v1.min.js"></script>
     <!-- jquery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <!-- local function -->
     <script type="text/javascript" src="script/function.js"></script>
 </head>
 
 <body>
-<div id="wrapper">
-   <header>
-      <p> Housing Prices, Resid Land Prices and Land Sales in 281 Chinese Cities (2007-2012)</p>    
-   </header>
-
-	<div id="content">
-    <div id="control-line" class="clearfix">
-    <p>Select the Variable and play, stop if wanted, and mouseover for value</p>
-    <select id="opts" class="control" multiple>
-          <option value="Residential Land Price">Real Residential Land Price (10,000 RMB/Acre)</option>
-          <option value="Housing Price">Real Housing Price(RMB/m2)</option>
-          <option value="New Land Sales">New Land Sales (Acre)</option>
-          <option value="Urban Population">Urban Population (10,000)</option>
-          <option value="Salary">Real Per Capita Income (RMB)</option>
-    </select>
-
-    <input name="updateButton" 
-      type="button" 
-      value="PLAY" 
-      onclick="animateMap()"
-      id="button"/>
-    <span id="clock">Year</span>
-
+    <div id="wrapper">
+        <header>
+            <p> Housing Prices, Resid Land Prices and Land Sales in 281 Chinese Cities (2007-2012)</p>
+        </header>
+        <div id="content">
+            <div id="control-line" class="clearfix">
+                <p>Select the Variable and play, stop if wanted, and mouseover for value</p>
+                <select id="opts" class="control" multiple>
+                    <option value="Residential Land Price">Real Residential Land Price (10,000 RMB/Acre)</option>
+                    <option value="Housing Price">Real Housing Price(RMB/m2)</option>
+                    <option value="New Land Sales">New Land Sales (Acre)</option>
+                    <option value="Urban Population">Urban Population (10,000)</option>
+                    <option value="Salary">Real Per Capita Income (RMB)</option>
+                </select>
+                <input name="updateButton" type="button" value="PLAY" onclick="animateMap()" id="button" />
+                <span id="clock">Year</span>
+            </div>
+            <aside>
+                <h2>Research Questions</h2>
+                <p>During my internship at <a href="http://www.plc.pku.edu.cn/en/">Lincoln Institute of Land Policy</a>, I helped with a research project looking at a panel dataset on 281 Chinese cities' housing price, residential land price and land sales from 2007-2012. Our goal was to identify the interaction between housing price and residential land price in the context of China's public land ownership, and to examine if land restriction plays any part in influencing land price. </p>
+                <p>This animated visualization using d3 intends to give an overview of the dataset. Note that we deflated all price variables by the CPI in the corresponding province using 2000 as the base year. From the visualization we observed that a lot of data were missing from cities in Western China, especially in Tibet, Xinjiang, Qinghai, Sichuan, Yunnan and Inner Mongolia. </p>
+                <p>GeoJson files were found <a href="https://github.com/zhshi/d3js-footprint">here</a>, and the animation code was modified from <a href="http://bl.ocks.org/rgdonohue/9280446">Rich Donohue</a>. Javascript code to this visualization can be found <a href="https://github.com/katielong/Land_Housing_Price/blob/master/script/script-map-animate.js">here</a>. In the next visualization, we zoom in for more information on each city.</p>
+                <p class="right">Next
+                    <a href="zoomin.html"><img src="images/right_arrow.png" class="arrow"></a>
+                </p>
+            </aside>
+        </div>
+        <footer>
+            Visualization created by <a href="https://katielong.github.io/">Yue Long </a>, code <a href="https://github.com/katielong/Land_Housing_Price">here</a>
+        </footer>
     </div>
-
-    <aside>
-    <h2>Research Questions</h2>
-    <p>During my internship at <a href="http://www.plc.pku.edu.cn/en/">Lincoln Institute of Land Policy</a>, I helped with a research project looking at a panel dataset on 281 Chinese cities' housing price, residential land price and land sales from 2007-2012. Our goal was to identify the interaction between housing price and residential land price in the context of China's public land ownership, and to examine if land restriction plays any part in influencing land price. </p>
-    <p>This animated visualization using d3 intends to give an overview of the dataset. Note that we deflated all price variables by the CPI in the corresponding province using 2000 as the base year. From the visualization we observed that a lot of data were missing from cities in Western China, especially in Tibet, Xinjiang, Qinghai, Sichuan, Yunnan and Inner Mongolia. </p>
-    <p>GeoJson files were found <a href="https://github.com/zhshi/d3js-footprint">here</a>, and the animation code was modified from <a href="http://bl.ocks.org/rgdonohue/9280446">Rich Donohue</a>. Javascript code to this visualization can be found <a href="https://github.com/katielong/Land_Housing_Price/blob/master/script/script-map-animate.js">here</a>. In the next visualization, we zoom in for more information on each city.</p>
-    <p class="right">Next <a href="zoomin.html" ><img src="images/right_arrow.png" class="arrow"></a></p>
-    </aside>
-	</div>
-
-  <footer>Visualization created by <a href="https://katielong.github.io/">Yue Long </a></footer>
-</div>
-<script type="text/javascript" src="script/script-map-animate.js"></script>
+    <script type="text/javascript" src="script/script-map-animate.js"></script>
 </body>
+
 </html>
