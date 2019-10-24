@@ -1,107 +1,111 @@
-body{
-  font-family: 'Slabo 27px', serif;
+body {
+    font-family: 'Slabo 27px', serif;
 }
 
 header {
-  display:inline;
-  text-align: center;
-  font-size:30px;
-  font-style:bold;
+    display: inline;
+    text-align: center;
+    font-size: 30px;
+    font-style: bold;
 }
 
-aside{
-  float:right;
-  width:300px;
+aside {
+    float: right;
+    width: 300px;
 }
 
-footer{
-  font-size:12px;
-  margin:20px 0;
+footer {
+    font-size: 12px;
+    margin: 20px 0;
 }
 
-a{
-  text-decoration:none;
-  color:#888;
+a {
+    text-decoration: none;
+    color: #888;
 }
 
-#wrapper{
-  width:1000px;
-  margin:20px auto;
-  margin-top:30px;
+#wrapper {
+    width: 1000px;
+    margin: 20px auto;
+    margin-top: 30px;
 }
 
-.arrow{
-  display:inline-block;
-  width:15px;
+.arrow {
+    display: inline-block;
+    width: 15px;
 }
 
-.right{
-  float:right;
+.right {
+    float: right;
 }
 
-.left{
-  float:left;
+.left {
+    float: left;
 }
+
 
 /*control line*/
-.control{
-  display:inline-block;
-  vertical-align: middle;
+
+.control {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-#control-line{
-  font-size:20px;
-  margin-top:40px;
-  margin-left:50px;
+#control-line {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-left: 50px;
 }
 
-
-#button, #opts{
-  background-color:#FFF;
-  border: 1px dotted #ccc; 
-  padding:0 auto;
+#button,
+#opts {
+    background-color: #FFF;
+    border: 1px dotted #ccc;
+    padding: 0 auto;
 }
 
-#clock{
-  font-size: 60px;
-  color: #ddd;
-  padding:20px;
+#clock {
+    font-size: 60px;
+    color: #ddd;
+    padding: 20px;
 }
-.clearfix:after{
-  display:block;
-  content:"";
-  clear:both;
+
+.clearfix:after {
+    display: block;
+    content: "";
+    clear: both;
 }
 
 
 /*animate*/
+
 .counties {
-  fill: none;
-  stroke: #AAA;
-  stroke-width: 0.5px;
-  stroke-linejoin: round;
+    fill: none;
+    stroke: #AAA;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
 }
 
 .states {
-  fill: none;
-  stroke: #777;
-  stroke-width: 1.5px;
-  stroke-linejoin: round;
+    fill: none;
+    stroke: #777;
+    stroke-width: 1.5px;
+    stroke-linejoin: round;
 }
 
 .key path {
-  display: none;
+    display: none;
 }
 
 .key line {
-  stroke: #000;
-  shape-rendering: crispEdges;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 
 #tooltip {
     border: none;
-    background-color:#FFF;
-    opacity:0.8;
+    background-color: #FFF;
+    opacity: 0.8;
 }
 
 #tooltip label {
@@ -109,107 +113,108 @@ a{
     float: left;
     font-style: bold;
     font-size: 20px;
-    font-weight: bold;  
+    font-weight: bold;
 }
 
-#legend svg{
-  float:right;
-  clear:both;
+#legend svg {
+    float: right;
+    clear: both;
 }
-
 
 
 /*zoomin*/
+
 .background {
-  fill: none;
-  pointer-events: all;
+    fill: none;
+    pointer-events: all;
 }
 
-#map{
-  float:left;
+#map {
+    float: left;
 }
 
-#search{
-  border:none;
-  font-size:25px;
-  font-style:italic;
-  
+#search {
+    border: none;
+    font-size: 25px;
+    font-style: italic;
+    width: 265px;
 }
 
-#counties{
-  fill:#FFF;
+#counties {
+    fill: #FFF;
 }
 
-.active{
-  fill:yellow;
+.active {
+    fill: yellow;
 }
 
-rect{
-  fill:#777;
-  opacity:0.6;
+rect {
+    fill: #777;
+    opacity: 0.6;
 }
 
 .line2 {
-  fill: none;
-  stroke: red;
-  stroke-width: 1.5px;
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5px;
 }
-
 
 
 /*scatter*/
+
 text {
-  font-size: 10px;
+    font-size: 10px;
 }
 
 .dot {
-  stroke: #000;
+    stroke: #000;
 }
 
-.axis path, .axis line,{
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.axis path,
+.axis line,
+{
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 
-.year.label{
-  font-size:60px;
-  fill: #ddd;
-  padding:20px;
+.year.label {
+    font-size: 60px;
+    fill: #ddd;
+    padding: 20px;
 }
 
 .overlay {
-  fill: none;
-  pointer-events: all;
-  cursor: ew-resize;
+    fill: none;
+    pointer-events: all;
+    cursor: ew-resize;
 }
 
-#legend-text{
-  font-size:15px;
-  padding:0;
+#legend-text {
+    font-size: 15px;
+    padding: 0;
 }
+
 
 /*scatter two*/
-.x.label, .y.label{
-  font-size:14px;
+
+.x.label,
+.y.label {
+    font-size: 14px;
 }
 
-#content1, #content2{
-  float:left;
+#content1,
+#content2 {
+    float: left;
 }
 
-#content1 p, #content2 p{
-  text-align:center;
+#content1 p,
+#content2 p {
+    text-align: center;
 }
 
 .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
-
-
-
-
-
-
